@@ -1,4 +1,3 @@
-import Link from "next/Link";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
@@ -15,10 +14,13 @@ export default function ListPosts({ posts }) {
       <li key={uuidv4()}>
         <a
           onClick={() => {
-            router.push({
-              pathname: `http://localhost:3000/post/[pid]`,
-              query: { pid: id, title, body },
-            });
+            router.push(
+              {
+                pathname: `http://localhost:3000/post/[pid]`,
+                query: { pid: id, title, body },
+              },
+              `http://localhost:3000/post/${id}`
+            );
           }}
         >
           {title}
