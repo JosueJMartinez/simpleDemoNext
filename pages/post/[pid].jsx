@@ -10,7 +10,7 @@ const Post = ({ pid, title, body, comments }) => (
     <h3>Comments</h3>
     <ul>
       {comments.map(c => (
-        <Comment {...c}></Comment>
+        <Comment key={c.id} {...c}></Comment>
       ))}
     </ul>
   </>
