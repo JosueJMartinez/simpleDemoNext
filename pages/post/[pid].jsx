@@ -17,14 +17,19 @@ const Post = ({ pid, title, body, comments }) => (
 );
 
 Post.getInitialProps = async ({ query }) => {
-  const { pid } = query;
-  console.log(query);
+  const { pid, title, body } = query;
+
   try {
-    const res = await Axios.get(
+    let res = await Axios.get(
       `https://jsonplaceholder.typicode.com/comments?postId=${pid}`
     );
-    // console.log(res);
-    return { ...query, comments: res.data };
+    const comments = res.data;
+    if (!title) {
+      res = await Axios.get(
+        `https://jsonplaceholder.typicode.com/posts/${pid}`
+      );
+    }
+    return { ...query, comments, ...res.data };
   } catch (error) {
     console.log("unable to get comments requests for posts");
     return { ...query, comments: "unable to get data" };
